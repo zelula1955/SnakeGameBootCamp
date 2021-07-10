@@ -3,7 +3,7 @@ let context = canvas.getContext("2d"); //....
 let box = 32;
 let nivel = 1;
 let veloz = 300;
-let splitsnake = 5;
+let splitsnake = 6;
 
 let snake = []; //criar cobrinha como lista, já que ela vai ser uma série de coordenadas, que quando pintadas, criam os quadradinhos
 snake[0] ={
@@ -54,27 +54,30 @@ function iniciarJogo(){
         if(snake[0].x == snake[i].x && snake[0].y == snake[i].y)
         {
             clearInterval(jogo);
-            alert('Game Over :(');
+            alert('Game Over!!! :(');
         }
         else
         {
-            console.log ("limite: " + snake.length + " Velocidade: " + veloz);
-            if (snake.length >= splitsnake && nivel < 4) 
-            {     
+            if (snake.length >= splitsnake && nivel <= 3) 
+            {   
+                console.log ("limite: " + snake.length + " Velocidade: " + veloz);
                 veloz = (veloz -100);
+                alert(splitsnake + "Continuar NIVEL " + nivel + " ?" );
                 setInterval(iniciarJogo, veloz);
                 splitsnake += 5
-                alert(splitsnake + "Continuar NIVEL :" + (nivel += 1) );
-            }
-            else
-            {  
-                if (nivel > 3)
-                {              
-                    clearInterval(jogo);
-                    alert('WINNER: :)');
-                }
+                nivel += 1
+
             }
         }
+
+        if (veloz <= 100 && nivel >= 4)
+            {   
+            veloz = 300 
+            i = snake.length + 1;
+            setInterval(iniciarJogo, veloz);
+            alert('WINNER!!!: :)');
+            }
+
     }
 
     criarBG();
@@ -101,8 +104,10 @@ function iniciarJogo(){
         y: snakeY
     }
 
+
     snake.unshift(newHead); //método unshift adiciona como primeiro quadradinho da cobrinha
 
 }
 
+veloz = 300 
 let jogo = setInterval(iniciarJogo, veloz);
