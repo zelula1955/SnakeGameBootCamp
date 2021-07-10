@@ -1,6 +1,7 @@
 let canvas = document.getElementById("snake"); //criar elemento que irá rodar o jogo
 let context = canvas.getContext("2d"); //....
 let box = 32;
+let fundo = "lightgreen"
 let nivel = 1;
 let veloz = 300;
 let splitsnake = 6;
@@ -17,7 +18,7 @@ let food ={
 }
 
 function criarBG(){
-    context.fillStyle = "lightgreen";
+    context.fillStyle = fundo;
     context.fillRect(0, 0, 16*box, 16*box); //desenha o retângulo usando x e y e a largura e altura setadas
 }
 
@@ -43,7 +44,8 @@ function update(event){
     if(event.keyCode == 40 && direction != 'up') direction = 'down';
 }
 
-function iniciarJogo(){  
+function iniciarJogo()
+{  
     if(snake[0].x > 16*box && direction == "right") snake[0].x = 0;
     if(snake[0].x < 0 && direction == "left") snake[0].x = 16*box;
     if(snake[0].y > 16*box && direction == "down") snake[0].y = 0;
@@ -60,24 +62,25 @@ function iniciarJogo(){
         {
             if (snake.length >= splitsnake && nivel <= 3) 
             {   
-                console.log ("limite: " + snake.length + " Velocidade: " + veloz);
                 veloz = (veloz -100);
-                alert(splitsnake + "Continuar NIVEL " + nivel + " ?" );
+                alert("YOU GOT IT !!! LEVEL " + nivel + " !" );
                 setInterval(iniciarJogo, veloz);
-                splitsnake += 5
-                nivel += 1
-
+                splitsnake += 5;
+                fundo ="orange";
+                nivel += 1;
+                if (veloz == 100 )
+                {  fundo ="lightblue"; }
+            
             }
         }
 
-        if (veloz <= 100 && nivel >= 4)
-            {   
-            veloz = 300 
-            i = snake.length + 1;
-            setInterval(iniciarJogo, veloz);
-            alert('WINNER!!!: :)');
-            }
 
+    }
+    if (veloz <= 0 )
+    {   
+        clearInterval(jogo);
+        alert('WINNER!!!: :)');
+        i = snake.length += 1;
     }
 
     criarBG();
@@ -109,5 +112,4 @@ function iniciarJogo(){
 
 }
 
-veloz = 300 
 let jogo = setInterval(iniciarJogo, veloz);

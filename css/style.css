@@ -5,6 +5,6 @@ body{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color:white;
-    color: rgb(52, 165, 52);
+    background-color:thistle;
+    color: rgb(110, 52, 165);
 }
